@@ -10,6 +10,11 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    memo: TMemo;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
@@ -45,11 +50,7 @@ begin
             rt := 1000;
             msg := queue.Receive (tr, wdq, wb, rt);
             if msg <> nil then
-            begin
-              Showmessage(msg.body);
-              Showmessage(msg.label_);
-            end;
-
+              Memo.Lines.add('MSG: ' + msg.label_ + ' - ' +msg.body);
           finally
             queue.close;
           end;
@@ -76,8 +77,8 @@ begin
     begin
       try
         msg := CreateCOMObject (CLASS_MSMQMessage) as IMSMQMessage;
-        msg.label_ := 'Teste';
-        msg.body := 'Isso é um teste';
+        msg.label_ := Edit1.text;
+        msg.body := Edit2.text;
         tr := MQ_NO_TRANSACTION;
         msg.Send (queue, tr);
 
@@ -88,6 +89,8 @@ begin
   except
     on e: exception do showmessage (e.message);
   end;
+  Edit1.text := '';
+  Edit2.text := '';
 end;
 
 end.
