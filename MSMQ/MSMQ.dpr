@@ -2,7 +2,8 @@ program MSMQ;
 
 uses
   Forms,
-  TesteMSMQ in 'TesteMSMQ.pas' {Form1};
+  TesteMSMQ in 'TesteMSMQ.pas' {Form1},
+  MSMQ_TLB in 'MSMQ_TLB.pas';
 
 {$R *.res}
 

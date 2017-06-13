@@ -39,6 +39,7 @@ var
 begin
     try
         queueinfo := CreateCOMObject(CLASS_MSMQQueueInfo) as IMSMQQueueInfo;
+
         queueinfo.PathName := PCHAR('.\PRIVATE$\IDG');
         queue := queueinfo.Open (MQ_RECEIVE_ACCESS, MQ_DENY_NONE);
         if queue.IsOpen=1  then
