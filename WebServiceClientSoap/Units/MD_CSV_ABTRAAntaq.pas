@@ -37,7 +37,7 @@ implementation
 
 constructor CSV_ABTRAAntaq.create;
 begin
-  AIM_CET_TRP_ContainerCargaPerigosa := CET_TRP_ContainerCargaPerigosa.Create;
+  AIM_CET_TRP_ContainerCargaPerigosa := nil;
 end;
 
 destructor CSV_ABTRAAntaq.destroy;
@@ -57,7 +57,6 @@ procedure CSV_ABTRAAntaq.MSV_AddContainerCargaPerigosa(prstAltura: string;
                                                        prinSituacao: Integer;
                                                        prstTerminal: string);
 begin
-  AIM_CET_TRP_ContainerCargaPerigosa.Free;
   AIM_CET_TRP_ContainerCargaPerigosa := CET_TRP_ContainerCargaPerigosa.Create(prstAltura,
                                                                               prstBloco,
                                                                               prstConteiner,
@@ -68,7 +67,6 @@ begin
                                                                               prstQuadra,
                                                                               prinSituacao,
                                                                               prstTerminal);
-
 end;
 
 function CSV_ABTRAAntaq.MSV_AddNCM(prstCodigo, prstDescricao: string): Integer;
@@ -90,11 +88,12 @@ begin
                                                                                                    prstEspecificacao,
                                                                                                    prstONU));
 end;
-
+ 
 procedure CSV_ABTRAAntaq.MSV_Limpar;
 begin
   if Assigned(AIM_CET_TRP_ContainerCargaPerigosa) then
     AIM_CET_TRP_ContainerCargaPerigosa.Free;
+  AIM_CET_TRP_ContainerCargaPerigosa := nil;
 end;
 
 function CSV_ABTRAAntaq.MSV_GetXMLEnvio: string;
@@ -112,7 +111,7 @@ begin
   Result := '';
   if Assigned(AIM_CET_TRP_ContainerCargaPerigosa) then
   begin
-    lXMLDoc          := NewXMLDocument();
+    lXMLDoc          := NewXMLDocument('');
     lXMLDoc.Active   := True;
     lXMLDoc.Encoding := 'UTF-8';
     lNodeCadastrar   := lXMLDoc.CreateElement('Cadastrar', '');
@@ -120,45 +119,45 @@ begin
 
     lNodeConteinerCargaPerigosa := lNodeCadastrar.AddChild('conteinercargaperigosa');
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Altura');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stAltura;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Altura;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Bloco');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stBloco;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Bloco;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Conteiner');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stConteiner; ;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Conteiner; ;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('IsoCode');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stISOCode;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.ISOCode;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Lastro');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stLastro;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Lastro;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Peso');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stPeso;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Peso;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Pilha');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stPilha;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Pilha;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Quadra');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stQuadra;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Quadra;
 
-    //TODO Cast
+    //TODO Cast  de string e integer
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Situacao');
    // lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.inSituacao;
 
     lNodeAux := lNodeConteinerCargaPerigosa.AddChild('Terminal');
-    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.stTerminal;
+    lNodeAux.Text:= AIM_CET_TRP_ContainerCargaPerigosa.Terminal;
 
     lNodeListaNCM := lNodeConteinerCargaPerigosa.AddChild('ListaNCM');
     for linContador := 0 to Length(AIM_CET_TRP_ContainerCargaPerigosa.ListaNCM)-1 do
     begin
       lNodeNCM := lNodeListaNCM.AddChild('ncm');
       lNodeAux := lNodeNCM.AddChild('Codigo');
-      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.ListaNCM[linContador] as CET_TRP_NCM).stCodigo;
+      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.ListaNCM[linContador] as CET_TRP_NCM).Codigo;
 
       lNodeAux := lNodeNCM.AddChild('Descricao');
-      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.ListaNCM[linContador] as CET_TRP_NCM).stDescricao;
+      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.ListaNCM[linContador] as CET_TRP_NCM).Descricao;
     end;
 
     lNodeCargas := lNodeConteinerCargaPerigosa.AddChild('Cargas');
@@ -166,29 +165,35 @@ begin
     begin
       lNodeCargaPerigosa := lNodeCargas.AddChild('cargaperigosa');
       lNodeAux := lNodeCargaPerigosa.AddChild('Classificacao');
-      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).stClassificacao;
+      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).Classificacao;
 
       lNodeAux := lNodeCargaPerigosa.AddChild('Descricao');
-      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).stDescricao;
+      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).Descricao;
 
       lNodeAux := lNodeCargaPerigosa.AddChild('Especificacao');
-      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).stEspecificacao;
+      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).Especificacao;
 
       lNodeAux := lNodeCargaPerigosa.AddChild('Onu');
-      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).stOnu;
+      lNodeAux.Text := (AIM_CET_TRP_ContainerCargaPerigosa.Cargas[linContador] as CET_TRP_CargaPerigosa).Onu;
     end;
 
-    lXMLDoc.XML.Delete(0);
-
-    Result := lXMLDoc.XML.Text;
+    Result :=lXMLDoc.XML.Text;
     Result := MIM_XMLToSOAPEnv(Result);
   end;
 end;
 
 function CSV_ABTRAAntaq.MIM_XMLToSOAPEnv(prstXML: string): string;
+var
+  ltsAux: TStringList;
 begin
+  ltsAux := TStringList.Create();
+  ltsAux.Text := prstXML;
+  //TO DO: verificar se a primeira linha do XML é um cabeçalho
+  ltsAux.Delete(0);
+  prstXML := ltsAux.Text;
+
   Result := '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">';
   Result := Result + '<soapenv:Header/>';
-  Result := Result + '<soapenv:Body>';  Result := Result + HTMLEncode(prstXML);  Result := Result + '</soapenv:Body>';  Result := Result + '</soapenv:Envelope>';end;
+  Result := Result + '<soapenv:Body>';  Result := Result + HTMLEncode(prstXML);  Result := Result + '</soapenv:Body>';  Result := Result + '</soapenv:Envelope>';  ltsAux.Free;end;
 
 end.

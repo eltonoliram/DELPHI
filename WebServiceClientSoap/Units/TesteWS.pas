@@ -33,12 +33,12 @@ begin
   lCSV_ABTRAAntaq := CSV_ABTRAAntaq.Create();
   lCSV_ABTRAAntaq.MSV_limpar;
   lCSV_ABTRAAntaq.MSV_AddContainerCargaPerigosa('20','11','hv40','iso','20','40', 'A','60',2,'085');
-  for lin := 0 to 2 do
+{  for lin := 0 to 2 do
   begin
      lCSV_ABTRAAntaq.MSV_AddNCM('TE','TESTE');
      lCSV_ABTRAAntaq.MSV_AddCargaPerigosa('3','IMO', 'UN', 'ONU')
   end;
-                   
+ }                  
   memo1.Text := lCSV_ABTRAAntaq.MSV_GetXMLEnvio();
 
   lCSV_ABTRAAntaq.Free;

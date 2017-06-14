@@ -5,23 +5,35 @@ interface
 type
   {Classes de Envio}
   CET_TRP_NCM = class(TObject)
+  private
     stCodigo: string;
     stDescricao: string;
+    procedure  MAC_SetstCodigo(const Value: string);
+    procedure  MAC_SetstDescricao(const Value: string);  public
+    property Codigo: string read stCodigo write MAC_SetstCodigo;
+    property Descricao: string read stDescricao write MAC_SetstDescricao;
     constructor Create(prstCodigo: string; prstDescricao: string);
     destructor Destroy; override;
   end;
 
   CET_TRP_CargaPerigosa = class(TObject)
+  private
     stClassificacao: string;
     stDescricao: string;
     stEspecificacao: string;
     stONU: string;
+    procedure MAC_SetstClassificacao(const Value: string);
+    procedure MAC_SetstDescricao(const Value: string);    procedure MAC_SetstEspecificacao(const Value: string);    procedure MAC_SetstONU(const Value: string);  public
+    property Classificacao: string read stClassificacao write MAC_SetstClassificacao;
+    property Descricao: string read stDescricao write MAC_SetstDescricao;
+    property Especificacao: string read stEspecificacao write MAC_SetstEspecificacao;
+    property ONU: string read stONU write MAC_SetstONU;
     constructor Create(prstClassificacao: string; prstDescricao: string; prstEspecificacao: string; prstONU: string);
     destructor Destroy(); override;
   end;
 
   CET_TRP_ContainerCargaPerigosa = class(TObject)
-  public
+  private
     stAltura: string;
     stBloco: string;
     stConteiner: string;
@@ -32,8 +44,29 @@ type
     stQuadra: string;
     inSituacao: Integer;
     stTerminal: string;
+    procedure MAC_SetstAltura(const Value: string);
+    procedure MAC_SetstBloco(const Value: string);
+    procedure MAC_SetstConteiner(const Value: string);
+    procedure MAC_SetstISOCode(const Value: string);
+    procedure MAC_SetstLastro(const Value: string);
+    procedure MAC_SetstPeso(const Value: string);
+    procedure MAC_SetstPilha(const Value: string);
+    procedure MAC_SetstQuadra(const Value: string);
+    procedure MAC_SetinSituacao(const Value: Integer);
+    procedure MAC_SetstTerminal(const Value: string);
+  public
     Cargas: array of CET_TRP_CargaPerigosa;
     ListaNCM: array of CET_TRP_NCM;
+    property Altura: string read stAltura write MAC_SetstAltura;
+    property Bloco: string read stBloco write MAC_SetstBloco;
+    property Conteiner: string read stConteiner write MAC_SetstConteiner;
+    property ISOCode: string read stISOCode write MAC_SetstISOCode;
+    property Lastro: string read stLastro write MAC_SetstLastro;
+    property Peso: string read stPeso write MAC_SetstPeso;
+    property Pilha: string read stPilha write MAC_SetstPilha;
+    property Quadra: string read stQuadra write MAC_SetstQuadra;
+    property Situacao: Integer read inSituacao write MAC_SetinSituacao;
+    property Terminal: string read stTerminal write MAC_SetstTerminal;
     function MSV_AddCargaPerigosa(Value: CET_TRP_CargaPerigosa): Integer;
     function MSV_AddNCM(Value: CET_TRP_NCM): Integer;
     constructor Create(prstAltura: string;
@@ -109,8 +142,30 @@ begin
   for linIndex := 0 to Length(ListaNCM) - 1 do
     (ListaNCM[linIndex] as CET_TRP_NCM).Free;
 
+
   inherited;
 end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstAltura(const Value: string);
+begin  stAltura := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstBloco(const Value: string);begin  stBloco := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstConteiner(const Value: string);begin  stConteiner := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstISOCode(const Value: string);begin  stISOCode := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstLastro(const Value: string);begin  stLastro := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstPeso(const Value: string);begin  stPeso := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstPilha(const Value: string);begin  stPilha := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstQuadra(const Value: string);begin  stQuadra := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetinSituacao(const Value: Integer);begin  inSituacao := Value;end;
+
+procedure CET_TRP_ContainerCargaPerigosa.MAC_SetstTerminal(const Value: string);begin  stTerminal := Value;end;
 
 function CET_TRP_ContainerCargaPerigosa.MSV_AddCargaPerigosa(Value: CET_TRP_CargaPerigosa): Integer;
 begin
@@ -140,6 +195,11 @@ begin
   inherited;
 end;
 
+procedure CET_TRP_NCM.MAC_SetstCodigo(const Value: string);
+begin  stCodigo := Value;end;
+
+procedure CET_TRP_NCM.MAC_SetstDescricao(const Value: string);begin  stDescricao := Value;end;
+
 { CET_TRP_CargaPerigosa }
 
 constructor CET_TRP_CargaPerigosa.Create(prstClassificacao: string;
@@ -158,6 +218,15 @@ destructor CET_TRP_CargaPerigosa.Destroy;
 begin
   inherited;
 end;
+
+procedure CET_TRP_CargaPerigosa.MAC_SetstClassificacao(const Value: string);
+begin  stClassificacao := Value;end;
+
+procedure CET_TRP_CargaPerigosa.MAC_SetstDescricao(const Value: string);begin  stDescricao := Value;end;
+
+procedure CET_TRP_CargaPerigosa.MAC_SetstEspecificacao(const Value: string);begin  stEspecificacao := Value;end;
+
+procedure CET_TRP_CargaPerigosa.MAC_SetstONU(const Value: string);begin  stONU := Value;end;
 
 { CET_TRP_Fault }
 
