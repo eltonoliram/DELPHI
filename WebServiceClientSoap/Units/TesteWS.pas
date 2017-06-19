@@ -59,7 +59,8 @@ var
 begin
   //Envio do XML gerado
   lCAT_AbtraAntaqConectorOut := CAT_AbtraAntaqConectorOut.Create;
-  memo2.Text := lCAT_AbtraAntaqConectorOut.MSV_Enviar(memo1.Text);
+  lCAT_AbtraAntaqConectorOut.MSV_Enviar(memo1.Text);
+  memo2.Text := lCAT_AbtraAntaqConectorOut.MAC_GetResponse;
 
   //Parse da resposta
   lCSV_ABTRAAntaq := CSV_ABTRAAntaq.Create();
