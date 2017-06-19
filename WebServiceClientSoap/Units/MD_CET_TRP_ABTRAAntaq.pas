@@ -78,23 +78,34 @@ type
                        prstPilha: string;
                        prstQuadra: string;
                        prinSituacao: Integer;
-                       prstTerminal: string); overload;
-    constructor Create; overload;
+                       prstTerminal: string); 
     destructor Destroy(); override;
   end;
 
 
   {Classes de Retorno}
   CET_TRP_CadastrarResult = class (TObject)
-    stCodigo : string;
+  private
+    stCodigo: string;
     stMensagem: string;
+    procedure  MAC_SetstCodigo(const Value: string);
+    procedure  MAC_SetstMensagem(const Value: string);
+  public
+    property Codigo: string read stCodigo write MAC_SetstCodigo;
+    property Mensagem: string read stMensagem write MAC_SetstMensagem;
     constructor create(prstCodigo: string; prstMensagem: string);
     destructor destroy;  override;
   end;
 
   CET_TRP_Fault = class (TObject)
-    stFaultCode : string;
+  private
+    stFaultCode: string;
     stFaultString: string;
+    procedure MAC_SetstFaultCode(const Value: string);
+    procedure MAC_SetstFaultString(const Value: string);
+  public
+    property FaultCode: string read stFaultCode write MAC_SetstFaultCode;
+    property FaultString: string read stFaultString write MAC_SetstFaultString;
     constructor create(prstFaultCode: string; prstFaultString: string);
     destructor destroy; override;
   end;
@@ -125,11 +136,6 @@ begin
   stQuadra := prstQuadra;
   inSituacao := prinSituacao;
   stTerminal := prstTerminal;
-end;
-
-constructor CET_TRP_ContainerCargaPerigosa.Create; 
-begin
-  inherited
 end;
 
 destructor CET_TRP_ContainerCargaPerigosa.Destroy;
@@ -242,6 +248,10 @@ begin
   inherited;
 end;
 
+procedure CET_TRP_Fault.MAC_SetstFaultCode(const Value: string);
+begin  stFaultCode := Value;end;
+
+procedure CET_TRP_Fault.MAC_SetstFaultString(const Value: string);begin  stFaultString := Value;end;
 
 { CET_TRP_CadastrarResult }
 
@@ -256,5 +266,10 @@ destructor CET_TRP_CadastrarResult.destroy;
 begin
   inherited;
 end;
+
+procedure CET_TRP_CadastrarResult.MAC_SetstCodigo(const Value: string);
+begin  stCodigo := Value;end;
+
+procedure CET_TRP_CadastrarResult.MAC_SetstMensagem(const Value: string);begin  stMensagem := Value;end;
 
 end.

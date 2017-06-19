@@ -4,7 +4,8 @@ uses
   Forms,
   TesteWS in 'Units\TesteWS.pas' {Form1},
   MD_CET_TRP_ABTRAAntaq in 'Units\MD_CET_TRP_ABTRAAntaq.pas',
-  MD_CSV_ABTRAAntaq in 'Units\MD_CSV_ABTRAAntaq.pas';
+  MD_CSV_ABTRAAntaq in 'Units\MD_CSV_ABTRAAntaq.pas',
+  MD_CAT_AbtraAntaqConectorOut in 'Units\MD_CAT_AbtraAntaqConectorOut.pas';
 
 {$R *.res}
 

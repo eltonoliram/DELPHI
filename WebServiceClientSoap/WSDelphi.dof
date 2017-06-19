@@ -45,7 +45,7 @@ OutputDir=BIN
 UnitOutputDir=DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=
+SearchPath=D:\T37\trunk\framework\Indy\D6
 Packages=vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;soaprtl;dbexpress;dbxcds;indy;dclOffice2k;RxCtl6;RxDB6;RxBDE6;PsQRD60;gtDocEngD60Pro;gtQRExpD60;tnbsuite6
 Conditionals=
 DebugSourceDirs=
@@ -88,6 +88,9 @@ Comments=
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlSearchPath]
+Count=1
+Item0=D:\T37\trunk\framework\Indy\D6
 [HistoryLists\hlUnitOutputDirectory]
 Count=2
 Item0=DCU
